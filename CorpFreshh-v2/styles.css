@@ -1,0 +1,25 @@
+/* imagenes del carrusel */
+
+.img-carousel {
+    max-width: 600px; 
+    height: auto;
+}
+
+/* imagenes de las tarjetas de mas informacion */
+.img-small {
+    max-width: 35%; 
+    height: auto;
+}
+
+/* imagenes de las tarjetas de producto */
+
+.img-prod {
+    max-width: 35%; 
+    height: auto;
+}
+
+.img-productos{
+    max-width: 50%; 
+    height: auto;
+    
+}
