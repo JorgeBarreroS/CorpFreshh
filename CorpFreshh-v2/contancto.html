@@ -14,7 +14,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo01">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
@@ -27,14 +27,19 @@
                     </li>
                 </ul>
             </div>
-            <div class="d-flex">
-                <img src="imagenes/busqueda-de-lupa.png" id="img-lupa" alt="lupa" width="30px" >
-                <img src="imagenes/carrito-de-compras.png" id="img-lupa" alt="lupa" width="30px" >
-                <img src="imagenes/user.svg" id="img-lupa" alt="lupa" width="30px" >
+            <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
+                <a href="busqueda.html" class="ms-2">
+                    <img src="imagenes/busqueda-de-lupa.png" id="img-lupa" alt="lupa" width="30px">
+                </a>
+                <a href="carrito.html" class="ms-2">
+                    <img src="imagenes/carrito-de-compras.png" id="img-carrito" alt="carrito" width="30px">
+                </a>
+                <a href="perfil.html" class="ms-2">
+                    <img src="imagenes/user.svg" id="img-user" alt="user" width="30px">
+                </a>
             </div>
         </div>
     </nav>
-
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">¡Contáctanos!</h2>
@@ -126,6 +131,6 @@
     </div>
 </footer>
 
-    
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
