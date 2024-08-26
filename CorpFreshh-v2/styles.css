@@ -1,4 +1,4 @@
-/* imagenes del carrusel */
+
 
 .img-carousel {
     max-width: 600px; 
@@ -7,24 +7,21 @@
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-color: rgba(19, 14, 14, 0.5); /* Fondo semitransparente */
-    border-radius: 50%; /* Hacer los botones redondos */
+    background-color: rgba(19, 14, 14, 0.5); 
+    border-radius: 50%; 
     width: 50px;
     height: 50px;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-    opacity: 1; /* Asegurarse de que la opacidad esté al 100% */
+    opacity: 1; 
 }
 
-/* imagenes de las tarjetas de mas informacion */
 .img-small {
     max-width: 35%; 
     height: auto;
 }
-
-/* imagenes de las tarjetas de producto */
 
 .img-prod {
     max-width: 35%; 
@@ -35,4 +32,19 @@
     max-width: 50%; 
     height: auto;
     
+}
+
+body {
+    background: radial-gradient(328px at 2.9% 15%, rgb(191, 224, 251) 0%, rgb(232, 233, 251) 25.8%, rgb(252, 239, 250) 50.8%, rgb(234, 251, 251) 77.6%, rgb(240, 251, 244) 100.7%);
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6; 
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px; 
+    font-weight: 700; 
+    color: #333; 
 }
