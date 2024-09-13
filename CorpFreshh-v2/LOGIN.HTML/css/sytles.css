@@ -1,0 +1,132 @@
+body {
+    background: linear-gradient(to right, #535353, #3e91a0);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-header {
+    text-align: center;
+}
+
+.login-header img {
+    max-width: 60px;
+}
+
+.login-header h2 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.form-label {
+    font-size: 0.9rem;
+}
+
+.btn {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}
+
+.social-login .btn img {
+    margin-right: 0.5rem;
+}
+
+.small-text {
+    font-size: 0.8rem;
+}
+
+.social-login {
+    margin-top: 2rem;
+}
+
+@media (max-width: 576px) {
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .login-container {
+        padding: 1rem;
+    }
+
+    .login-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .login-header img {
+        max-width: 50px;
+    }
+
+    /* registo responsible */
+
+    .register-container {
+        padding: 1.5rem;
+    }
+
+    /* recuperar comtraseña */
+
+    .reset-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .btn {
+        font-size: 0.8rem;
+    }
+
+    .login-header h2 {
+        font-size: 1.1rem;
+    }
+}
+
+
+/* registo */
+
+
+.register-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-label {
+    font-size: 0.9rem;
+}
+
+.btn {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}
+
+.small-text {
+    font-size: 0.8rem;
+}
+
+/* recuperar contraseña */
+
+.reset-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+
+
+
