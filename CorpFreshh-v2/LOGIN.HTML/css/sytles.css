@@ -80,7 +80,7 @@ body {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: px) {
     .btn {
         font-size: 0.8rem;
     }
