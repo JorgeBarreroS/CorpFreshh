@@ -6,6 +6,7 @@
     <title>CorpFreshh - Productos Frescos y Divertidos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styless.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="secondary">
@@ -182,7 +183,12 @@
                 "El término 'polo' para camisas proviene del deporte del mismo nombre.",
                 "La chaqueta de cuero fue popularizada por los pilotos de la Primera Guerra Mundial."
             ];
-            alert(funFacts[Math.floor(Math.random() * funFacts.length)]);
+            Swal.fire({
+                title: 'Dato Curioso',
+                text: funFacts[Math.floor(Math.random() * funFacts.length)],
+                icon: 'info',
+                confirmButtonText: '¡Genial!'
+            });
         }
     
         function showRandomOffer() {
@@ -192,7 +198,12 @@
                 "¡Envío gratis en compras superiores a $50 en ropa!",
                 "¡20% de descuento en tu primera compra de chaquetas!"
             ];
-            alert(offers[Math.floor(Math.random() * offers.length)]);
+            Swal.fire({
+                title: 'Oferta Especial',
+                text: offers[Math.floor(Math.random() * offers.length)],
+                icon: 'success',
+                confirmButtonText: '¡Aprovechar ahora!'
+            });
         }
     
         function showRandomStyleTip() {
@@ -202,9 +213,15 @@
                 "Los colores neutros son fáciles de combinar con cualquier prenda.",
                 "Los accesorios adecuados pueden transformar un look sencillo en uno elegante."
             ];
-            alert("Consejo de estilo: " + tips[Math.floor(Math.random() * tips.length)]);
+            Swal.fire({
+                title: 'Tip de Estilo',
+                text: "Consejo de estilo: " + tips[Math.floor(Math.random() * tips.length)],
+                icon: 'info',
+                confirmButtonText: '¡Gracias!'
+            });
         }
     </script>
+    
     
 </body>
 </html>
