@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-08-2024 a las 00:14:37
+-- Tiempo de generación: 16-09-2024 a las 14:29:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -22,6 +22,78 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `corpfreshh` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `corpfreshh`;
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+DROP PROCEDURE IF EXISTS `ACTUALIZAR_USUARIO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ACTUALIZAR_USUARIO` (IN `x_id_usuario` INT(11), IN `x_nombre_usuario` VARCHAR(100), IN `x_apellido_usuario` VARCHAR(100), IN `x_telefono_usuario` INT(11), IN `x_correo_usuario` VARCHAR(100), IN `x_direccion1_usuario` VARCHAR(100), IN `x_direccion2_usuario` VARCHAR(100), IN `x_ciudad_usuario` VARCHAR(100), IN `x_pais_usuario` VARCHAR(100), IN `x_contraseña` VARBINARY(228))   BEGIN
+    UPDATE usuario
+    SET 
+    	nombre_usuario = x_nombre_usuario, 
+        apellido_usuario = x_apellido_usuario,
+        telefono_usuario = x_telefono_usuario,
+        correo_usuario = x_correo_usuario,
+        direccion1_usuario = x_direccion1_usuario,
+        direccion2_usuario = x_direccion2_usuario,
+        ciudad_usuario = ciudad_usuario,
+        pais_usuario = x_pais_usuario,
+        contraseña = x_contraseña
+    WHERE id_usuario = x_id_usuario;
+END$$
+
+DROP PROCEDURE IF EXISTS `BUSCAR_USUARIO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BUSCAR_USUARIO` (IN `x_id_usuario` INT(11))   BEGIN
+	SELECT id_usuario, nombre_usuario, apellido_usuario,
+          telefono_usuario, correo_usuario, direccion1_usuario,
+          direccion2_usuario, ciudad_usuario, pais_usuario
+    FROM usuario
+    WHERE id_usuario = x_id_usuario;
+END$$
+
+DROP PROCEDURE IF EXISTS `CREAR_USUARIO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CREAR_USUARIO` (IN `x_id_usuario` INT(11), IN `x_nombre_usuario` VARCHAR(100), IN `x_apellido_usuario` VARCHAR(100), IN `x_telefono_usuario` INT(11), IN `x_correo_usuario` VARCHAR(100), IN `x_direccion1_usuario` VARCHAR(100), IN `x_direccion2_usuario` VARCHAR(100), IN `x_ciudad_usuario` VARCHAR(100), IN `x_pais_usuario` VARCHAR(100))   BEGIN
+	INSERT INTO  usuario(id_usuario, nombre_usuario, apellido_usuario,
+                 telefono_usuario, correo_usuario, direccion1_usuario,
+                 direccion2_usuario, ciudad_usuario, pais_usuario)
+                 
+    VALUES (x_id_usuario, x_nombre_usuario, x_apellido_usuario,
+                 x_telefono_usuario, x_correo_usuario, x_direccion1_usuario,
+                 x_direccion2_usuario, x_ciudad_usuario, x_pais_usuario);
+    END$$
+
+DROP PROCEDURE IF EXISTS `ELIMINAR_USUARIO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ELIMINAR_USUARIO` (IN `x_id_usuario` INT(11))   BEGIN
+    
+    DELETE FROM usuario
+    WHERE id_usuario = x_id_usuario;
+END$$
+
+DROP PROCEDURE IF EXISTS `ENCRIPTAR_CONTRASENA`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ENCRIPTAR_CONTRASENA` (IN `x_id_usuario` INT(11), IN `x_contraseña` VARCHAR(255))   BEGIN 
+UPDATE usuario 
+ SET contraseña = AES_ENCRYPT(contraseña, 'almuerzo')
+ WHERE id_usuario = x_id_usuario;
+END$$
+
+--
+-- Funciones
+--
+DROP FUNCTION IF EXISTS `NOMBRE_COMPLETO_POR_ID`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `NOMBRE_COMPLETO_POR_ID` (`x_id_usuario` INT) RETURNS VARCHAR(100) CHARSET utf8mb4 COLLATE utf8mb4_general_ci DETERMINISTIC BEGIN
+    DECLARE X_Nombre VARCHAR(45);
+    DECLARE X_Apellido VARCHAR(45);
+
+    SELECT nombre_usuario, apellido_usuario
+    INTO x_Nombre, x_Apellido
+    FROM usuario
+    WHERE id_usuario = x_id_usuario;
+
+    RETURN CONCAT(x_Nombre, ' ', x_Apellido);
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -313,6 +385,66 @@ INSERT INTO `rol` (`id_rol`, `nombre_rol`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `t_usuario`
+--
+
+DROP TABLE IF EXISTS `t_usuario`;
+CREATE TABLE `t_usuario` (
+  `t_id_usuario` int(11) NOT NULL,
+  `correo` varchar(25) NOT NULL,
+  `contraseña` varbinary(228) NOT NULL,
+  `rol` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELACIONES PARA LA TABLA `t_usuario`:
+--   `rol`
+--       `rol` -> `id_rol`
+--   `t_id_usuario`
+--       `usuario` -> `id_usuario`
+--
+
+--
+-- Volcado de datos para la tabla `t_usuario`
+--
+
+INSERT INTO `t_usuario` (`t_id_usuario`, `correo`, `contraseña`, `rol`) VALUES
+(1, 'olamiperro@gmail.com', 0xe87630b5e9724aef90045addab81705a, 1),
+(2, 'maria@example.com', 0xbcd54734740f4a20619dea52561b4dcd, 2),
+(3, 'carlos@example.com', 0x690b6cc7815d16a92dce9d3f84e4f74f, 2),
+(4, 'laura@example.com', 0xf58e3f7beadd3fef497cd2c6cb33de4c, 2),
+(5, 'ana@example.com', 0xc0df72a2db908c8749ec7183348f4ac5, 2),
+(6, 'pedro@example.com', 0x5778b095e800997f96779a9e84cf21eb, 2),
+(7, 'carolina@example.com', 0x0595b9c44d78b6796a0959baa65951b4, 2),
+(8, 'andres@example.com', 0x1c770f72a2ca070c6a4780052076ebed, 2),
+(9, 'claudia@example.com', 0x63cf0542b5a1dda89bdde5709be4a877, 2),
+(10, 'sofia@example.com', 0x35b970dbfb0f5ce096e721c0a1857d24, 2),
+(11, 'david@example.com', 0xfe2c86dcc771d8f8225dbc99dc1a43d2, 2),
+(12, 'lucia@example.com', 0x59ee18e488fc1ecb54a2e055bafd6a6a, 2),
+(13, 'felipe@example.com', 0xea01330604670b991b6b3d6616fa2317, 2),
+(14, 'natalia@example.com', 0x6f24e9cac9f61c44971edb17faf94dab, 2),
+(15, 'ricardo@example.com', 0xaa9b60a59fa3cf33b20ca021eb9f7c43, 2),
+(16, 'beatriz@example.com', 0xf29152f7cc4e5f27df47c49a5dc28bd9, 2),
+(17, 'luis@example.com', 0xfb017711db61df69158f7887b93369a0, 2),
+(18, 'sara@example.com', 0x71c2d016d0dc099cebb2bdffa9b55bcf, 2),
+(19, 'antonio@example.com', 0xe87630b5e9724aef90045addab81705a, 2),
+(20, 'paola@example.com', 0xcd3f09d240ad0556d09fe0fc67350814, 2),
+(21, 'jorge@example.com', 0x2c7b6a2c6a7f63029ad3ae1a528197e7, 2),
+(22, 'elena@example.com', 0xd9453c3f447a90077cb8325a809ba1f8, 2),
+(23, 'oscar@example.com', 0x2c7b6a2c6a7f63029ad3ae1a528197e7, 2),
+(24, 'isabel@example.com', 0x1c12c77339177ce504a751ec22186ed9, 2),
+(25, 'julian@example.com', 0xf5137000426dd67b91f94605487279e3, 2),
+(26, 'valeria@example.com', 0xd0a006d0ff99b49e15a4515a8a81a7ee, 2),
+(27, 'gabriel@example.com', 0x53bfef04280e910355485bc21f7388b2, 2),
+(28, 'veronica@example.com', 0x394d7603f120a07a92e3c2276924b689, 2),
+(29, 'martin@example.com', 0x7345e55ceffff10f42fa08b6ec61c3d8, 2),
+(30, 'camila@example.com', 0xea01330604670b991b6b3d6616fa2317, 2),
+(31, 'holabuendia@gmail.com', 0xe486d3e2bd16a7ce61929816a33ef095, 2),
+(32, 'perroiguanita@gmail.com', 0x79e3c8fdd1a9cbef317aebc9db28abe5, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -327,6 +459,7 @@ CREATE TABLE `usuario` (
   `direccion2_usuario` varchar(255) DEFAULT NULL,
   `ciudad_usuario` varchar(100) DEFAULT NULL,
   `pais_usuario` varchar(100) DEFAULT NULL,
+  `contraseña` varbinary(228) NOT NULL,
   `id_rol` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -340,37 +473,86 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre_usuario`, `apellido_usuario`, `telefono_usuario`, `correo_usuario`, `direccion1_usuario`, `direccion2_usuario`, `ciudad_usuario`, `pais_usuario`, `id_rol`) VALUES
-(1, 'Juan', 'Pérez', '123456789', 'juan@example.com', 'Calle 123', 'Apto 4A', 'Bogotá', 'Colombia', 1),
-(2, 'María', 'Sánchez', '234567890', 'maria@example.com', 'Avenida 456', 'Casa 2', 'Medellín', 'Colombia', 2),
-(3, 'Carlos', 'Gómez', '564738291', 'carlos@example.com', 'Carrera 789', 'Piso 3', 'Cali', 'Colombia', 2),
-(4, 'Laura', 'Martínez', '102938475', 'laura@example.com', 'Calle 789', 'Apartamento 5', 'Cartagena', 'Colombia', 2),
-(5, 'Ana', 'Rodríguez', '293847561', 'ana@example.com', 'Avenida 101', 'Local 2', 'Barranquilla', 'Colombia', 2),
-(6, 'Pedro', 'Jiménez', '847562930', 'pedro@example.com', 'Calle 202', 'Apto 8B', 'Pereira', 'Colombia', 2),
-(7, 'Carolina', 'Gutiérrez', '473829105', 'carolina@example.com', 'Calle 567', 'Casa 3', 'Cúcuta', 'Colombia', 2),
-(8, 'Andrés', 'Díaz', '918273645', 'andres@example.com', 'Carrera 345', 'Apartamento 7', 'Manizales', 'Colombia', 2),
-(9, 'Claudia', 'Herrera', '827364910', 'claudia@example.com', 'Avenida 678', 'Oficina 4', 'Pereira', 'Colombia', 2),
-(10, 'Sofía', 'Paredes', '564738920', 'sofia@example.com', 'Calle 303', 'Casa 6', 'Bogotá', 'Colombia', 2),
-(11, 'David', 'Lozano', '738291046', 'david@example.com', 'Avenida 909', 'Piso 5', 'Medellín', 'Colombia', 2),
-(12, 'Lucía', 'Hernández', '849302170', 'lucia@example.com', 'Carrera 404', 'Oficina 3', 'Cali', 'Colombia', 2),
-(13, 'Felipe', 'Vargas', '938470562', 'felipe@example.com', 'Calle 212', 'Local 4', 'Barranquilla', 'Colombia', 2),
-(14, 'Natalia', 'Suárez', '473820647', 'natalia@example.com', 'Calle 788', 'Apartamento 8', 'Cartagena', 'Colombia', 2),
-(15, 'Ricardo', 'Mendoza', '982374560', 'ricardo@example.com', 'Avenida 565', 'Casa 7', 'Pereira', 'Colombia', 2),
-(16, 'Beatriz', 'Morales', '483920175', 'beatriz@example.com', 'Carrera 303', 'Local 1', 'Manizales', 'Colombia', 2),
-(17, 'Luis', 'Castro', '293847650', 'luis@example.com', 'Calle 123', 'Casa 5', 'Cúcuta', 'Colombia', 2),
-(18, 'Sara', 'Torres', '564738291', 'sara@example.com', 'Avenida 300', 'Piso 6', 'Bogotá', 'Colombia', 2),
-(19, 'Antonio', 'García', '948273650', 'antonio@example.com', 'Calle 456', 'Apto 7', 'Medellín', 'Colombia', 2),
-(20, 'Paola', 'Reyes', '192837465', 'paola@example.com', 'Carrera 123', 'Local 8', 'Cali', 'Colombia', 2),
-(21, 'Jorge', 'Salazar', '564738293', 'jorge@example.com', 'Avenida 789', 'Casa 4', 'Barranquilla', 'Colombia', 2),
-(22, 'Elena', 'Díaz', '837465920', 'elena@example.com', 'Calle 112', 'Apartamento 6', 'Cartagena', 'Colombia', 2),
-(23, 'Oscar', 'Ramos', '284736591', 'oscar@example.com', 'Calle 900', 'Oficina 2', 'Pereira', 'Colombia', 2),
-(24, 'Isabel', 'Soto', '384920174', 'isabel@example.com', 'Avenida 555', 'Piso 8', 'Manizales', 'Colombia', 2),
-(25, 'Julián', 'Montoya', '738291024', 'julian@example.com', 'Carrera 777', 'Casa 3', 'Cúcuta', 'Colombia', 2),
-(26, 'Valeria', 'García', '847562394', 'valeria@example.com', 'Calle 303', 'Local 5', 'Bogotá', 'Colombia', 2),
-(27, 'Gabriel', 'Arias', '293847561', 'gabriel@example.com', 'Avenida 212', 'Casa 8', 'Medellín', 'Colombia', 2),
-(28, 'Verónica', 'Cárdenas', '847562930', 'veronica@example.com', 'Calle 101', 'Apartamento 9', 'Cali', 'Colombia', 2),
-(29, 'Martín', 'Ocampo', '564738291', 'martin@example.com', 'Avenida 787', 'Piso 4', 'Barranquilla', 'Colombia', 2),
-(30, 'Camila', 'Cardenas', '738291056', 'camila@example.com', 'Calle 909', 'Casa 2', 'Cartagena', 'Colombia', 2);
+INSERT INTO `usuario` (`id_usuario`, `nombre_usuario`, `apellido_usuario`, `telefono_usuario`, `correo_usuario`, `direccion1_usuario`, `direccion2_usuario`, `ciudad_usuario`, `pais_usuario`, `contraseña`, `id_rol`) VALUES
+(1, 'juan', 'lopez', '31234546', 'olamiperro@gmail.com', 'calle 9', 'calle 8', 'Bogotá', 'colombia', 0xe87630b5e9724aef90045addab81705a, 1),
+(2, 'María', 'Sánchez', '234567890', 'maria@example.com', 'Avenida 456', 'Casa 2', 'Medellín', 'Colombia', 0xbcd54734740f4a20619dea52561b4dcd, 2),
+(3, 'Carlos', 'Gómez', '564738291', 'carlos@example.com', 'Carrera 789', 'Piso 3', 'Cali', 'Colombia', 0x690b6cc7815d16a92dce9d3f84e4f74f, 2),
+(4, 'Laura', 'Martínez', '102938475', 'laura@example.com', 'Calle 789', 'Apartamento 5', 'Cartagena', 'Colombia', 0xf58e3f7beadd3fef497cd2c6cb33de4c, 2),
+(5, 'Ana', 'Rodríguez', '293847561', 'ana@example.com', 'Avenida 101', 'Local 2', 'Barranquilla', 'Colombia', 0xc0df72a2db908c8749ec7183348f4ac5, 2),
+(6, 'Pedro', 'Jiménez', '847562930', 'pedro@example.com', 'Calle 202', 'Apto 8B', 'Pereira', 'Colombia', 0x5778b095e800997f96779a9e84cf21eb, 2),
+(7, 'Carolina', 'Gutiérrez', '473829105', 'carolina@example.com', 'Calle 567', 'Casa 3', 'Cúcuta', 'Colombia', 0x0595b9c44d78b6796a0959baa65951b4, 2),
+(8, 'Andrés', 'Díaz', '918273645', 'andres@example.com', 'Carrera 345', 'Apartamento 7', 'Manizales', 'Colombia', 0x1c770f72a2ca070c6a4780052076ebed, 2),
+(9, 'Claudia', 'Herrera', '827364910', 'claudia@example.com', 'Avenida 678', 'Oficina 4', 'Pereira', 'Colombia', 0x63cf0542b5a1dda89bdde5709be4a877, 2),
+(10, 'Sofía', 'Paredes', '564738920', 'sofia@example.com', 'Calle 303', 'Casa 6', 'Bogotá', 'Colombia', 0x35b970dbfb0f5ce096e721c0a1857d24, 2),
+(11, 'David', 'Lozano', '738291046', 'david@example.com', 'Avenida 909', 'Piso 5', 'Medellín', 'Colombia', 0xfe2c86dcc771d8f8225dbc99dc1a43d2, 2),
+(12, 'Lucía', 'Hernández', '849302170', 'lucia@example.com', 'Carrera 404', 'Oficina 3', 'Cali', 'Colombia', 0x59ee18e488fc1ecb54a2e055bafd6a6a, 2),
+(13, 'Felipe', 'Vargas', '938470562', 'felipe@example.com', 'Calle 212', 'Local 4', 'Barranquilla', 'Colombia', 0xea01330604670b991b6b3d6616fa2317, 2),
+(14, 'Natalia', 'Suárez', '473820647', 'natalia@example.com', 'Calle 788', 'Apartamento 8', 'Cartagena', 'Colombia', 0x6f24e9cac9f61c44971edb17faf94dab, 2),
+(15, 'Ricardo', 'Mendoza', '982374560', 'ricardo@example.com', 'Avenida 565', 'Casa 7', 'Pereira', 'Colombia', 0xaa9b60a59fa3cf33b20ca021eb9f7c43, 2),
+(16, 'Beatriz', 'Morales', '483920175', 'beatriz@example.com', 'Carrera 303', 'Local 1', 'Manizales', 'Colombia', 0xf29152f7cc4e5f27df47c49a5dc28bd9, 2),
+(17, 'Luis', 'Castro', '293847650', 'luis@example.com', 'Calle 123', 'Casa 5', 'Cúcuta', 'Colombia', 0xfb017711db61df69158f7887b93369a0, 2),
+(18, 'Sara', 'Torres', '564738291', 'sara@example.com', 'Avenida 300', 'Piso 6', 'Bogotá', 'Colombia', 0x71c2d016d0dc099cebb2bdffa9b55bcf, 2),
+(19, 'Antonio', 'García', '948273650', 'antonio@example.com', 'Calle 456', 'Apto 7', 'Medellín', 'Colombia', 0xe87630b5e9724aef90045addab81705a, 2),
+(20, 'Paola', 'Reyes', '192837465', 'paola@example.com', 'Carrera 123', 'Local 8', 'Cali', 'Colombia', 0xcd3f09d240ad0556d09fe0fc67350814, 2),
+(21, 'Jorge', 'Salazar', '564738293', 'jorge@example.com', 'Avenida 789', 'Casa 4', 'Barranquilla', 'Colombia', 0x2c7b6a2c6a7f63029ad3ae1a528197e7, 2),
+(22, 'Elena', 'Díaz', '837465920', 'elena@example.com', 'Calle 112', 'Apartamento 6', 'Cartagena', 'Colombia', 0xd9453c3f447a90077cb8325a809ba1f8, 2),
+(23, 'Oscar', 'Ramos', '284736591', 'oscar@example.com', 'Calle 900', 'Oficina 2', 'Pereira', 'Colombia', 0x2c7b6a2c6a7f63029ad3ae1a528197e7, 2),
+(24, 'Isabel', 'Soto', '384920174', 'isabel@example.com', 'Avenida 555', 'Piso 8', 'Manizales', 'Colombia', 0x1c12c77339177ce504a751ec22186ed9, 2),
+(25, 'Julián', 'Montoya', '738291024', 'julian@example.com', 'Carrera 777', 'Casa 3', 'Cúcuta', 'Colombia', 0xf5137000426dd67b91f94605487279e3, 2),
+(26, 'Valeria', 'García', '847562394', 'valeria@example.com', 'Calle 303', 'Local 5', 'Bogotá', 'Colombia', 0xd0a006d0ff99b49e15a4515a8a81a7ee, 2),
+(27, 'Gabriel', 'Arias', '293847561', 'gabriel@example.com', 'Avenida 212', 'Casa 8', 'Medellín', 'Colombia', 0x53bfef04280e910355485bc21f7388b2, 2),
+(28, 'Verónica', 'Cárdenas', '847562930', 'veronica@example.com', 'Calle 101', 'Apartamento 9', 'Cali', 'Colombia', 0x394d7603f120a07a92e3c2276924b689, 2),
+(29, 'Martín', 'Ocampo', '564738291', 'martin@example.com', 'Avenida 787', 'Piso 4', 'Barranquilla', 'Colombia', 0x7345e55ceffff10f42fa08b6ec61c3d8, 2),
+(30, 'Camila', 'Cardenas', '738291056', 'camila@example.com', 'Calle 909', 'Casa 2', 'Cartagena', 'Colombia', 0xea01330604670b991b6b3d6616fa2317, 2),
+(31, 'carlos', 'jimenez', '3159786425', 'holabuendia@gmail.com', 'calle 5', 'calle 6', 'bogota', 'colombia', 0xe486d3e2bd16a7ce61929816a33ef095, 2),
+(32, 'juanito', 'elmascapito', '3159786425', 'perroiguanita@gmail.com', 'calle 6', 'calle 7', 'bogota', 'colombia', 0x79e3c8fdd1a9cbef317aebc9db28abe5, 2);
+
+--
+-- Disparadores `usuario`
+--
+DROP TRIGGER IF EXISTS `actualizacion_registro`;
+DELIMITER $$
+CREATE TRIGGER `actualizacion_registro` AFTER UPDATE ON `usuario` FOR EACH ROW BEGIN
+    -- Verificar si el registro existe en t_usuario
+    IF EXISTS (SELECT 1 FROM t_usuario WHERE t_id_usuario = OLD.id_usuario) THEN
+        -- Actualizar el registro en t_usuario
+        UPDATE t_usuario
+        SET correo = NEW.correo_usuario, 
+            contraseña = NEW.contraseña, 
+            rol = NEW.id_rol
+        WHERE t_id_usuario = OLD.id_usuario;
+    END IF;
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `encriptacion`;
+DELIMITER $$
+CREATE TRIGGER `encriptacion` BEFORE INSERT ON `usuario` FOR EACH ROW BEGIN
+    -- Encripta la contraseña usando AES_ENCRYPT y una clave secreta
+    SET NEW.contraseña = AES_ENCRYPT(NEW.contraseña, 'almuerzo');
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `insertar_registro`;
+DELIMITER $$
+CREATE TRIGGER `insertar_registro` AFTER INSERT ON `usuario` FOR EACH ROW BEGIN
+    -- Verificar si el registro ya existe en t_usuario
+    IF NOT EXISTS (SELECT 1 FROM t_usuario WHERE t_id_usuario = NEW.id_usuario) THEN
+        -- Insertar el nuevo registro en t_usuario
+        INSERT INTO t_usuario (t_id_usuario, correo, contraseña, rol)
+        VALUES (NEW.id_usuario, NEW.correo_usuario, NEW.contraseña, NEW.id_rol);
+    END IF;
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `quitar_registro`;
+DELIMITER $$
+CREATE TRIGGER `quitar_registro` AFTER DELETE ON `usuario` FOR EACH ROW BEGIN
+    -- Eliminar el registro correspondiente de t_usuario
+    DELETE FROM t_usuario WHERE t_id_usuario = OLD.id_usuario;
+END
+$$
+DELIMITER ;
 
 --
 -- Índices para tablas volcadas
@@ -419,10 +601,22 @@ ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
 
 --
+-- Indices de la tabla `t_usuario`
+--
+ALTER TABLE `t_usuario`
+  ADD PRIMARY KEY (`t_id_usuario`),
+  ADD KEY `t_id_usuario` (`t_id_usuario`),
+  ADD KEY `correo` (`correo`),
+  ADD KEY `contraseña` (`contraseña`),
+  ADD KEY `rol` (`rol`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `correo_usuario` (`correo_usuario`),
+  ADD KEY `contraseña` (`contraseña`),
   ADD KEY `id_rol` (`id_rol`);
 
 --
@@ -454,6 +648,13 @@ ALTER TABLE `pedido`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`);
+
+--
+-- Filtros para la tabla `t_usuario`
+--
+ALTER TABLE `t_usuario`
+  ADD CONSTRAINT `t_usuario_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `rol` (`id_rol`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_usuario_ibfk_2` FOREIGN KEY (`t_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
