@@ -34,9 +34,9 @@ if (!isset($_SESSION['correo'])) {
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Task</span>
+                    <a href="usuarios.php" class="sidebar-link">
+                        <i class="lni lni-users"></i>
+                        <span>Usuarios</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
