@@ -180,7 +180,7 @@
                                         <td><?php echo $user['pais_usuario'];?></td>
                                         <td><?php echo $user['contraseña'];?></td>
                                         <td><?php echo $user['id_rol'];?></td>
-                                        <td><a href="modificar.php?id=<?php echo $user['id_usuario']; ?>"> <i
+                                        <td><a href="Modificar/modificar.php?id=<?php echo $user['id_usuario']; ?>"> <i
                                                     class="lni lni-pencil-alt"></i></a></td>
                                         <td><a href="controladores/controlador.usuarios.php?id=<?php echo $user['id_usuario'];?>
                     " onclick=" return confirmar(event);">

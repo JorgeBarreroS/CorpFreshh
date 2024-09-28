@@ -14,9 +14,9 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <?php
-            require 'ModeloDAO/UsuarioDao.php';
-            require 'ModeloDTO/UsuarioDto.php';
-            require 'Utilidades/conexion.php';
+            require '../ModeloDAO/UsuarioDao.php';
+            require '../ModeloDTO/UsuarioDto.php';
+            require '../Utilidades/conexion.php';
 
             if($_GET['id']!=NULL){
                 $uDao = new UsuarioDao();
