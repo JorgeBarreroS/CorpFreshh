@@ -41,12 +41,12 @@ public function modificarUsuario(UsuarioDto $usuarioDto){
     return $mensaje;
     }
     // obtener usuario
-public function obtenerUsuario($idUsuario){
+public function obtenerUsuario($id_usuario){
     $cnn = Conexion::getConexion();
     $mensaje = "";
 try {
     $query = $cnn->prepare('SELECT * FROM usuario WHERE idUsuario=?');
-    $query->bindParam(1, $idUsuario);
+    $query->bindParam(1, $id_usuario);
     $query->execute();
     return $query->fetch();
 
@@ -58,12 +58,12 @@ return $mensaje;
 }
 
 //eliminar Usuario
-public function eliminarUsuario($idUsuario){
+public function eliminarUsuario($id_usuario){
     $cnn = Conexion::getConexion();
     $mensaje = "";
     try {
         $query = $cnn->prepare('DELETE FROM usuario WHERE idUsuario= ?');
-        $query->bindParam(1, $idUsuario);
+        $query->bindParam(1, $id_usuario);
         $query->execute();
         $mensaje= "Registro eliminado";
     } catch (Exception  $ex) {

@@ -6,10 +6,9 @@ exit();
 ?>
 
 <script type="text/javascript">
-    history.replaceState({},'','login.php');
-    history.pushState(null,'','login.php');
-    window.onpopstate= function(){
-        window.location.href='login.php';
-    };
-
+history.replaceState({}, '', 'login.php');
+history.pushState(null, '', 'login.php');
+window.onpopstate = function() {
+    window.location.href = 'login.php';
+};
 </script>

@@ -8,7 +8,13 @@
     <link rel=" stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- datatables css y js -->
+    <link href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" rel="stylesheet">
+    <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
@@ -130,32 +136,31 @@
             <div class="container-fluid">
                 <div class="row">
 
-                    <main class="main col ">
-                      <div class="table-responsive">
-                        <table
-                            class="  table table-container table-striped table-hover table-bordered table-responsive mt-4" >
-                            <thead class="table-dark light-header">
-                                <tr class="text-center">
-                                    <th style="font-weight:normal">ID</th>
-                                    <th style="font-weight:normal">Nombre</th>
-                                    <th style="font-weight :normal">Apellido</th>
-                                    <th style="font-weight :normal">Telefono</th>
-                                    <th style="font-weight :normal">Correo</th>
-                                    <th style="font-weight :normal">Direccion1</th>
-                                    <th style="font-weight :normal">direccion2</th>
-                                    <th style="font-weight :normal">Ciudad</th>
-                                    <th style="font-weight :normal">Pais</th>
-                                    <th style="font-weight :normal">Contraseña</th>
-                                    <th style="font-weight :normal">ID_Rol</th>
-                                    <th style="font-weight :normal">Modificar</th>
-                                    <th style="font-weight :normal">Eliminar</th>
+                    <main >
+                        <div class="table-responsive">
+                            <table class="  table table-container table-striped table-hover table-bordered table-responsive mt-4  "id="table">
+                                <thead class="table-dark light-header">
+                                    <tr class="text-center">
+                                        <th style="font-weight:normal">ID</th>
+                                        <th style="font-weight:normal">Nombre</th>
+                                        <th style="font-weight :normal">Apellido</th>
+                                        <th style="font-weight :normal">Telefono</th>
+                                        <th style="font-weight :normal">Correo</th>
+                                        <th style="font-weight :normal">Direccion1</th>
+                                        <th style="font-weight :normal">direccion2</th>
+                                        <th style="font-weight :normal">Ciudad</th>
+                                        <th style="font-weight :normal">Pais</th>
+                                        <th style="font-weight :normal">Contraseña</th>
+                                        <th style="font-weight :normal">ID_Rol</th>
+                                        <th style="font-weight :normal">Modificar</th>
+                                        <th style="font-weight :normal">Eliminar</th>
 
 
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
                 require 'ModeloDAO/UsuarioDao.php';
                 require 'ModeloDTO/UsuarioDto.php';
                 require 'Utilidades/conexion.php';
@@ -163,30 +168,30 @@
                 $uDao = new UsuarioDao();
                 $allUsers = $uDao->listarTodos();
                 foreach($allUsers as $user){?>
-                                <tr class="text-center">
-                                    <td><?php echo $user['id_usuario'];?></td>
-                                    <td><?php echo $user['nombre_usuario'];?></td>
-                                    <td><?php echo $user['apellido_usuario'];?></td>
-                                    <td><?php echo $user['telefono_usuario'];?></td>
-                                    <td><?php echo $user['correo_usuario'];?></td>
-                                    <td><?php echo $user['direccion1_usuario'];?></td>
-                                    <td><?php echo $user['direccion2_usuario'];?></td>
-                                    <td><?php echo $user['ciudad_usuario'];?></td>
-                                    <td><?php echo $user['pais_usuario'];?></td>
-                                    <td><?php echo $user['contraseña'];?></td>
-                                    <td><?php echo $user['id_rol'];?></td>
-                                    <td><a href="modificar.php?id=<?php echo $user['id_usuario']; ?>"> <i
-                                                class="lni lni-pencil-alt"></i></a></td>
-                                    <td><a href="controladores/controlador.usuarios.php?id=<?php echo $user['id_usuario'];?>
+                                    <tr class="text-center">
+                                        <td><?php echo $user['id_usuario'];?></td>
+                                        <td><?php echo $user['nombre_usuario'];?></td>
+                                        <td><?php echo $user['apellido_usuario'];?></td>
+                                        <td><?php echo $user['telefono_usuario'];?></td>
+                                        <td><?php echo $user['correo_usuario'];?></td>
+                                        <td><?php echo $user['direccion1_usuario'];?></td>
+                                        <td><?php echo $user['direccion2_usuario'];?></td>
+                                        <td><?php echo $user['ciudad_usuario'];?></td>
+                                        <td><?php echo $user['pais_usuario'];?></td>
+                                        <td><?php echo $user['contraseña'];?></td>
+                                        <td><?php echo $user['id_rol'];?></td>
+                                        <td><a href="modificar.php?id=<?php echo $user['id_usuario']; ?>"> <i
+                                                    class="lni lni-pencil-alt"></i></a></td>
+                                        <td><a href="controladores/controlador.usuarios.php?id=<?php echo $user['id_usuario'];?>
                     " onclick=" return confirmar(event);">
-                                            <i class="lni lni-trash-can"></i></a>
-                                    </td>
-                                </tr>
-                                <?php
+                                                <i class="lni lni-trash-can"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php
                 } ?>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
                         </div>
 
                         <div class="text-left">
@@ -219,6 +224,7 @@
         </div>
     </div>
 
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script>
     const hamBurger = document.querySelector(".toggle-btn");
@@ -227,6 +233,32 @@
         document.querySelector("#sidebar").classList.toggle("expand");
     });
     </script>
+    <script>
+    $(document).ready(function() {
+        $('#table').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ entradas",
+                "sZeroRecords": "No se encontraron resultados",
+                "sInfo": "Ver entradas del _START_ al _END_ de _TOTAL_ entradas",
+                "sInfoEmpty": "Ver entradas del 0 al 0 de 0 entradas",
+                "sInfoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    });
+    </script>
+
 </body>
 
 </html>

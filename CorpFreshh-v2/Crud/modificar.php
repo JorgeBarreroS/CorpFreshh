@@ -27,10 +27,10 @@
             <form action="controladores/controlador.usuarios.php" method="POST">
                 <h3 class="text-center mt-4">MODIFICAR USUARIO</h3>
                 <label for="">Documento</label>
-                <input type="text" name="documento" value="<?php echo $usuario['idUsuario'];?>" class="form-control">
+                <input type="text" name="documento" value="<?php echo $usuario['id_usuario'];?>" class="form-control">
                 <br>
                 <label for="">Nombre</label>
-                <input type="text" name="nombre" value="<?php echo $usuario['nombre'];?>" class="form-control">
+                <input type="text" name="nombre" value="<?php echo $usuario['nombre_usuario'];?>" class="form-control">
                 <br>
                 <label for="">Apellido</label>
                 <input type="text" name="apellido" value="<?php echo $usuario['apellido'];?>" class="form-control">
