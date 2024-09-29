@@ -1,16 +1,16 @@
 <?php
 class UsuarioDto{
     private $id_usuario = 0;
-    private $nombre = "";
+    private $nombre_usuario = "";
     private $apellido = "";
     private $direccion = "";
     private $clave = "";
 // GET
-function getIdUsuario(){
+function getid_usuario(){
     return $this->id_usuario;
 }
-function getNombre(){
-    return $this->nombre;
+function getnombre_usuario(){
+    return $this->nombre_usuario;
 }
 function getApellido(){
     return $this->apellido;
@@ -22,11 +22,11 @@ function getClave(){
     return $this->clave;
 }
 //set
-function setIdUsuario($id_usuario){
+function setid_usuario($id_usuario){
     $this->id_usuario=$id_usuario;
 }
-function setNombre($nombre){
-    $this->nombre=$nombre;
+function setnombre_usuario($nombre_usuario){
+    $this->nombre_usuario=$nombre_usuario;
 }
 function setApellido($apellido){
     $this->apellido=$apellido;

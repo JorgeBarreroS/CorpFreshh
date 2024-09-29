@@ -1,14 +1,17 @@
-<?php 
+<?php
+// print_r($_POST); 
 session_start();
-if(isset($_SESSION['correo'])){
-    header('Location: index.php'); // Redirige si ya hay una sesión iniciada
-    exit();  
+
+// Si la sesión está activa, redirigir al index
+if (isset($_SESSION['correo'])) {
+    header('Location: index.php');
+    exit();
 }
 
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header('Pragma: no-cache');
-header("Expires:0");
-
+// Deshabilitar el caché
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
 require 'Utilidades/conexion.php';
 $cnn = Conexion::getConexion();
 $usu = $_POST['txtUsu']; // Correo ingresado por el usuario
@@ -29,6 +32,8 @@ if($valor === FALSE || !$valor) {
     if($valor->contraseña_desencriptada === $contra) {
         // Si la contraseña coincide, inicia la sesión
         $_SESSION['correo'] = $valor->correo;
+        $_SESSION['id_usuario'] = $valor->t_id_usuario;  // Almacena el ID del usuario en la sesión
+
         header('Location: index.php');
         exit();
     } else {
@@ -37,4 +42,4 @@ if($valor === FALSE || !$valor) {
         exit();
     }
 }
-?>
+

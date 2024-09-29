@@ -1,10 +1,22 @@
+<?php
+session_start();
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['correo'])) {
+    // Si no ha iniciado sesión, redirigir a la página de login
+    header('Location: login.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Usuarios</title>
     <link rel=" stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
@@ -51,13 +63,13 @@
 <body>
 
     <div class="wrapper">
-        <aside id="sidebar">
+    <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="usuarios.php">Corp Freshh</a>
+                    <a href="index.php">Corp Freshh</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
@@ -68,59 +80,53 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="usuarios.php" class="sidebar-link">
                         <i class="lni lni-users"></i>
                         <span>Usuarios</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Auth</span>
+                        data-bs-target="#productosMenu" aria-expanded="false" aria-controls="productosMenu">
+                        <i class="lni lni-t-shirt"></i>
+                        <span>Inventario</span>
                     </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <ul id="productosMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Login</a>
+                            <a href="productos.php" class="sidebar-link">Productos</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Register</a>
+                            <a href="categoria.php" class="sidebar-link">Categorias</a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout"></i>
-                        <span>Multi Level</span>
+                        data-bs-target="#ordenesMenu" aria-expanded="false" aria-controls="ordenesMenu">
+                        <i class="lni lni-cart-full"></i>
+                        <span>Órdenes y Ventas</span>
                     </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <ul id="ordenesMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                Two Links
-                            </a>
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 1</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
+                            <a href="ordenes.php" class="sidebar-link">Órdenes</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pedidos.php" class="sidebar-link">Pedidos</a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="notificaciones.php" class="sidebar-link">
                         <i class="lni lni-popup"></i>
-                        <span>Notification</span>
+                        <span>Notificaciones</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="ajustesperf.php" class="sidebar-link">
                         <i class="lni lni-cog"></i>
-                        <span>Setting</span>
+                        <span>Ajustes</span>
                     </a>
                 </li>
             </ul>
@@ -136,9 +142,11 @@
             <div class="container-fluid">
                 <div class="row">
 
-                    <main >
+                    <main>
                         <div class="table-responsive">
-                            <table class="  table table-container table-striped table-hover table-bordered table-responsive mt-4  "id="table">
+                            <table
+                                class="  table table-container table-striped table-hover table-bordered table-responsive mt-4  "
+                                id="table">
                                 <thead class="table-dark light-header">
                                     <tr class="text-center">
                                         <th style="font-weight:normal">ID</th>
@@ -225,7 +233,7 @@
     </div>
 
 
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
     <script>
     const hamBurger = document.querySelector(".toggle-btn");
 

@@ -14,7 +14,7 @@ if (!isset($_SESSION['correo'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Pedidos</title>
     <link rel=" stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
@@ -97,7 +97,7 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </aside>
         <div class="main p-3">
-           #productos
+           #Pedidos
         </div>
     </div>
     <script src="../js/bootstrap.bundle.min.js"></script>

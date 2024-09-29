@@ -45,7 +45,7 @@ public function obtenerUsuario($id_usuario){
     $cnn = Conexion::getConexion();
     $mensaje = "";
 try {
-    $query = $cnn->prepare('SELECT * FROM usuario WHERE idUsuario=?');
+    $query = $cnn->prepare('SELECT * FROM usuario WHERE id_usuario=?');
     $query->bindParam(1, $id_usuario);
     $query->execute();
     return $query->fetch();

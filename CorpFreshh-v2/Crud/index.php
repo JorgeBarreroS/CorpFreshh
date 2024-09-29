@@ -1,8 +1,37 @@
 <?php
 session_start();
+
+// Verificamos si el usuario ha iniciado sesión comprobando si 'correo' está en la sesión
 if (!isset($_SESSION['correo'])) {
-    header("Location: login.php");
-    exit(); }
+    // Si no hay sesión activa, redirigimos al login
+    header('Location: login.php');
+    exit();
+} elseif (isset($_SESSION['correo'])) {
+    require 'ModeloDAO/UsuarioDao.php';
+    require 'ModeloDTO/UsuarioDto.php';
+    require 'Utilidades/conexion.php';
+    
+    // Verificamos si también está almacenado el ID del usuario en la sesión
+    if (isset($_SESSION['id_usuario'])) {
+        // Obtenemos el ID del usuario desde la sesión
+        $uDao = new UsuarioDao();
+        $usuario = $uDao->obtenerUsuario($_SESSION['id_usuario']);  // Obtenemos los datos del usuario
+        
+        // Verificamos si el usuario fue encontrado
+        if ($usuario) {
+            $nombre_usuario = $usuario['nombre_usuario'];  // Almacenamos el nombre del usuario
+        } else {
+            echo "Error: Usuario no encontrado.";
+            exit();
+        }
+    } else {
+        echo "Error: ID del usuario no encontrado en la sesión.";
+        exit();
+    }
+} else {
+    echo 'Ocurrió un error'; 
+    exit();
+}
 ?>
 
 <html lang="en">
@@ -15,8 +44,9 @@ if (!isset($_SESSION['correo'])) {
     <link rel="stylesheet" href="css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 </head>
+
 <body>
-<div class="wrapper">
+    <div class="wrapper">
         <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
@@ -41,52 +71,46 @@ if (!isset($_SESSION['correo'])) {
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Auth</span>
+                        data-bs-target="#productosMenu" aria-expanded="false" aria-controls="productosMenu">
+                        <i class="lni lni-t-shirt"></i>
+                        <span>Inventario</span>
                     </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <ul id="productosMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Login</a>
+                            <a href="productos.php" class="sidebar-link">Productos</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Register</a>
+                            <a href="categoria.php" class="sidebar-link">Categorias</a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout"></i>
-                        <span>Multi Level</span>
+                        data-bs-target="#ordenesMenu" aria-expanded="false" aria-controls="ordenesMenu">
+                        <i class="lni lni-cart-full"></i>
+                        <span>Órdenes y Ventas</span>
                     </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <ul id="ordenesMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
-                                Two Links
-                            </a>
-                            <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 1</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Link 2</a>
-                                </li>
-                            </ul>
+                            <a href="ordenes.php" class="sidebar-link">Órdenes</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pedidos.php" class="sidebar-link">Pedidos</a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="notificaciones.php" class="sidebar-link">
                         <i class="lni lni-popup"></i>
-                        <span>Notification</span>
+                        <span>Notificaciones</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="ajustesperf.php" class="sidebar-link">
                         <i class="lni lni-cog"></i>
-                        <span>Setting</span>
+                        <span>Ajustes</span>
                     </a>
                 </li>
             </ul>
@@ -98,22 +122,25 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </aside>
         <div class="main p-3">
-        <h1 class="text-center">CRUD</h1>
-            <h2 class="text-center">Bienvenid@ <?php echo $_SESSION['correo']?></h2>
+            <h1 class="text-center">CRUD</h1>
+
+            <!-- Mostramos el nombre del usuario en el mensaje de bienvenida -->
+            <h2 class="text-center">Bienvenid@ <?php echo htmlspecialchars($nombre_usuario, ENT_QUOTES, 'UTF-8'); ?>
+            </h2>
+
             <div class="text-center">
                 <a href="cerrarsesion.php">Cerrar Sesión</a>
             </div>
         </div>
     </div>
-
-<script src="../js/bootstrap.bundle.min.js"></script>
-<script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
     const hamBurger = document.querySelector(".toggle-btn");
 
-hamBurger.addEventListener("click", function () {
-  document.querySelector("#sidebar").classList.toggle("expand");
-});
-</script>
+    hamBurger.addEventListener("click", function() {
+        document.querySelector("#sidebar").classList.toggle("expand");
+    });
+    </script>
 </body>
 
 </html>

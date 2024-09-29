@@ -1,14 +1,13 @@
 <?php
 session_start();
-if(isset($_SESSION['correo'])){
-    header( 'Location.index.php');
+if (isset($_SESSION['correo'])){
+    header('Location:index.php');
 }
-header(header: "Cache-Control: no-cache, no-store, must-revalidate");
-header(header: 'Pragma:no-cache');
-header(header: "Expires:0");
-
+// Deshabilitar el caché
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
