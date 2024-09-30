@@ -14,15 +14,17 @@ if (!isset($_SESSION['correo'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar</title>
+    <title>Registrar</title>
     <link rel=" stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="wrapper">
-    <aside id="sidebar">
+        <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -97,68 +99,74 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </aside>
         <div class="main p-3">
-        <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <?php
-            require '../ModeloDAO/OrdenDao.php';
-            require '../ModeloDTO/OrdenDto.php';
-            require '../Utilidades/conexion.php';
 
-            if($_GET['id']!=NULL){
-                $uDao = new OrdenDao();
-                $usuario = $uDao->obtenerOrden($_GET['id']);
-                }
-            ?>
 
-            <form action="../controladores/controlador.orden.php" method="POST">
-                <h3 class="text-center mt-4">MODIFICAR ORDENES</h3>
-                <label for="">ID</label>
-                <input type="text" name="id_venta" value="<?php echo $usuario['id_venta'];?>" class="form-control">
-                <br>
-                <label for="">Fecha</label>
-                <input type="text" name="fecha_venta" value="<?php echo $usuario['fecha_venta'];?>" class="form-control">
-                <br>
-                <label for="">Impuesto</label>
-                <input type="text" name="impuesto_venta" value="<?php echo $usuario['impuesto_venta'];?>" class="form-control">
-                <br>
-                <label for="">Total</label>
-                <input type="text" name="total_venta" value="<?php echo $usuario['total_venta'];?>" class="form-control">
-                <br>
-                <label for="">Estado</label>
-                <input type="text" name="estado_venta" value="<?php echo $usuario['estado_venta'];?>" class="form-control">
-                <br>
-                <label for="">User</label>
-                <input type="text" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>" class="form-control">
-                <br>
-              
-                <div class="d-flex justify-content-center">
-                    <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary">
-                    <a href="../ordenes.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
-                </div>
-            </form>
+            <div class="container-fluid">
 
+                <main >
+                    <h2 class="text-center mt-4" >Registro de Pedidos </h2>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4 mt-4">
+                            <form action="../controladores/controlador.pedido.php" method="POST">
+                                <h3 class="text-center">REGISTRO</h3>
+                            
+                                
+                                <label for="">Id-Venta</label>
+                                <input type="text" name="id_venta" class="form-control">
+                                <br>
+                                <label for="">Usuario</label>
+                                <input type="text" name="id_usuario" class="form-control">
+                                <br>
+                                <label for="">Fecha</label>
+                                <input type="text" name="fecha_pedido" class="form-control">
+                                <br>
+                                <label for="">Estado</label>
+                                <input type="text" name="estado_pedido" class="form-control">
+                                <br>
+                                <label for="">Metodo de envio</label>
+                                <input type="text" name="metodo_envio_pedido" class="form-control">
+                                <br>
+                               
+
+                                <!--nuevo  -->
+                                <div class="d-flex justify-content-center">
+                                    <input type="submit" name="registro" id="registro" value="Registrarse"
+                                        class="btn btn-primary">
+                                    <a href="../pedidos.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+                        <div class="col-md-6 mt-4"></div>
+                    </div>
+                   
+                </main>
+            </div>
         </div>
-        <div class="col-md-4 mt-4"></div>
+
+
+
+        <?php 
+if(isset($_GET['mensaje'])){
+  ?>
+
+        <div class="row"> <br><br>
+            <div class="col-md-6"></div>
+            <div class="col-md-4 text-center">
+                <h4><?php echo $mensaje = $_GET['mensaje']?>
+                </h4>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+        <?php 
+    }
+?>
+        <div></div>
+
     </div>
-
-    <?php
-    if(isset($_GET['mensaje'])){
-        ?>
-
-    <div class="row"> <br><br>
-        <div class="col-md-6"></div>
-        <div class="col-md-4 text-center">
-            <h4><?php echo $mensaje = $_GET['mensaje']?>
-            </h4>
-        </div>
-        <div class="col-md-5"></div>
-    </div>
-
-    <?php } ?>
-
-
-        </div>
     </div>
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script>

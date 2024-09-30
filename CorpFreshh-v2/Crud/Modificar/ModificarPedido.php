@@ -101,40 +101,40 @@ if (!isset($_SESSION['correo'])) {
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <?php
-            require '../ModeloDAO/OrdenDao.php';
-            require '../ModeloDTO/OrdenDto.php';
+            require '../ModeloDAO/PedidoDao.php';
+            require '../ModeloDTO/PedidoDto.php';
             require '../Utilidades/conexion.php';
 
             if($_GET['id']!=NULL){
-                $uDao = new OrdenDao();
-                $usuario = $uDao->obtenerOrden($_GET['id']);
+                $uDao = new PedidoDao();
+                $usuario = $uDao->obtenerPedido($_GET['id']);
                 }
             ?>
 
-            <form action="../controladores/controlador.orden.php" method="POST">
-                <h3 class="text-center mt-4">MODIFICAR ORDENES</h3>
+            <form action="../controladores/controlador.pedido.php" method="POST">
+                <h3 class="text-center mt-4">MODIFICAR PEDIDOS</h3>
                 <label for="">ID</label>
+                <input type="text" name="id_pedido" value="<?php echo $usuario['id_pedido'];?>" class="form-control">
+                <br>
+                <label for="">ID-Venta</label>
                 <input type="text" name="id_venta" value="<?php echo $usuario['id_venta'];?>" class="form-control">
                 <br>
-                <label for="">Fecha</label>
-                <input type="text" name="fecha_venta" value="<?php echo $usuario['fecha_venta'];?>" class="form-control">
+                <label for="">Usuario</label>
+                <input type="text" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>" class="form-control">
                 <br>
-                <label for="">Impuesto</label>
-                <input type="text" name="impuesto_venta" value="<?php echo $usuario['impuesto_venta'];?>" class="form-control">
-                <br>
-                <label for="">Total</label>
-                <input type="text" name="total_venta" value="<?php echo $usuario['total_venta'];?>" class="form-control">
+                <label for="">Fecha Pedido</label>
+                <input type="text" name="fecha_pedido" value="<?php echo $usuario['fecha_pedido'];?>" class="form-control">
                 <br>
                 <label for="">Estado</label>
-                <input type="text" name="estado_venta" value="<?php echo $usuario['estado_venta'];?>" class="form-control">
+                <input type="text" name="estado_pedido" value="<?php echo $usuario['estado_pedido'];?>" class="form-control">
                 <br>
-                <label for="">User</label>
-                <input type="text" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>" class="form-control">
+                <label for="">Metodo de Envio</label>
+                <input type="text" name="metodo_envio_pedido" value="<?php echo $usuario['metodo_envio_pedido'];?>" class="form-control">
                 <br>
               
                 <div class="d-flex justify-content-center">
                     <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary">
-                    <a href="../ordenes.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
+                    <a href="../pedidos.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
                 </div>
             </form>
 

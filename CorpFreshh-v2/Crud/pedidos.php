@@ -18,6 +18,38 @@ if (!isset($_SESSION['correo'])) {
     <link rel=" stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- datatables css y js -->
+    <link href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" rel="stylesheet">
+    <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+ function confirmar(event) {
+        event.preventDefault(); // Evita la acción predeterminada del enlace
+        const link = event.currentTarget.href; // Obtiene la URL del enlace
+
+        Swal.fire({
+            title: '¿Estás seguro de eliminar este registro?',
+            text: "No podrás revertir esto",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745', // Color verde para el botón de confirmar
+            cancelButtonColor: '#6c757d', // Color gris para el botón de cancelar
+            confirmButtonText: 'Sí, eliminar!',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-success', // Clase de Bootstrap para el botón de confirmar
+                cancelButton: 'btn btn-secondary' // Clase de Bootstrap para el botón de cancelar
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link; // Redirige a la URL si se confirma
+            }
+        });
+    }
+</script>
 </head>
 
 <body>
@@ -97,7 +129,74 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </aside>
         <div class="main p-3">
-           #Pedidos
+        <?php 
+if (isset($_GET['mensaje'])){
+    ?>
+    <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+        <?php echo htmlspecialchars($_GET['mensaje']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php
+}
+?>
+
+        <main>
+                <h2 class="text-center">Gestión de Pedidos</h2>
+                <div class="table-responsive">
+                <div class="table-container">
+                <table class="  table table-container table-striped table-hover table-bordered table-responsive mt-4  " id="table">
+                        <thead class="table-dark table light-header">
+                            <tr class="text-center">
+                                <th style="font-weight: normal">ID</th>
+                                <th style="font-weight: normal">Venta</th>
+                                <th style="font-weight: normal">Usuario</th>
+                                <th style="font-weight: normal">Fecha Pedido</th>
+                                <th style="font-weight: normal">Estado</th>
+                                <th style="font-weight: normal">Metodo de Envio</th>
+                                <th style="font-weight: normal">Modificar</th>
+                                <th style="font-weight: normal">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            require 'ModeloDAO/PedidoDao.php';
+                            require 'ModeloDTO/PedidoDto.php';
+                            require 'Utilidades/conexion.php';
+                            $uDao = new PedidoDao();
+                            $allusers = $uDao->listarTodos(); 
+                            foreach($allusers as $user){ ?>
+
+                            <tr class="text-center">
+                                <td> <?php echo $user['id_pedido'];?></td>
+                                <td> <?php echo $user['id_venta'];?></td>
+                                <td> <?php echo $user['id_usuario'];?></td>
+                                <td> <?php echo $user['fecha_pedido'];?></td>
+                                <td> <?php echo $user['estado_pedido'];?></td>
+                                <td> <?php echo $user['metodo_envio_pedido'];?></td>
+
+                                <td><a href="Modificar/ModificarPedido.php?id=<?php echo $user['id_pedido']; ?>">
+                                        <i class="lni lni-pencil-alt"></i></a></td>
+                                <td><a href="controladores/controlador.pedido.php?id=<?php echo $user['id_pedido'];?>
+                                 " onclick=" return confirmar(event);">
+                                        <i class="lni lni-trash-can"></i></a>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                </div>
+                <div class="text-left">
+                    <a href="Registrarse/registropedido.php" class="btn btn-danger "> Registrarse</a>
+                    <a href="reporte.php" class="btn btn-warning "> Reporte </a>
+                </div>
+
+
+            </main>
         </div>
     </div>
     <script src="../js/bootstrap.bundle.min.js"></script>
@@ -108,6 +207,29 @@ if (!isset($_SESSION['correo'])) {
         document.querySelector("#sidebar").classList.toggle("expand");
     });
     </script>
+    <script>
+    $(document).ready(function() {
+        $('#table').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ entradas",
+                "sZeroRecords": "No se encontraron resultados",
+                "sInfo": "Ver entradas del _START_ al _END_ de _TOTAL_ entradas",
+                "sInfoEmpty": "Ver entradas del 0 al 0 de 0 entradas",
+                "sInfoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    });
+    </script>
 </body>
-
-</html>
