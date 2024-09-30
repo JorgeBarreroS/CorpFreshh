@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Display</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styless.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CorpFreshh</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../productos.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../contancto.html">Contacto</a>
+                    </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link active" href="../nosotros.html">Nosotros</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
+                <a href="busqueda.html" class="ms-2">
+                    <img src="../imagenes/busqueda-de-lupa.png" id="img-lupa" alt="lupa" width="30px">
+                </a>
+                <a href="carrito.html" class="ms-2">
+                    <img src="../imagenes/carrito-de-compras.png" id="img-carrito" alt="carrito" width="30px">
+                </a>
+                <a href="LOGIN.HTML/login.html" class="ms-2">
+                    <img src="../imagenes/user.svg" id="img-user" alt="user" width="30px">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="w-75 " src="../imagenes/zapatosPP.png" alt="Product Image" class="product-image">
+            </div>
+            <div class="col-md-6">
+                <h2>Nike SB Dunk Low Verdy Visty</h2>
+                <p class="h3 mb-4">$1.730.200</p>
+                
+                <div class="mb-3">
+                    <label for="size" class="form-label">Talla:</label>
+                    <select class="form-select" id="size">
+                        <option selected>Elige talla</option>
+                        <option value="36">37</option>
+                        <option value="37">38</option>
+                        <option value="38">39</option>
+                        <option value="39">40</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Color:</label>
+                    <div>
+                        <span class="color-option bg-danger"></span>
+                        <span class="color-option bg-primary"></span>
+                        <span class="color-option bg-success"></span>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Cantidad:</label>
+                    <input type="number" class="form-control" id="quantity" value="1" min="1">
+                </div>
+                
+                <button class="btn btn-primary btn-lg mt-3">Añadir al carrito</button>
+                
+                <div class="mt-4">
+                    <h4>Description:</h4>
+                    <p>El Nike SB Dunk Low Verdy Visty es una versión fresca y divertida del icónico modelo SB Dunk, que cobró vida a través de una colaboración con el artista japonés Verdy. Esta llamativa zapatilla se inspira en el personaje de Verdy, "VISTY", y combina creatividad y estilo urbano en un diseño destacado. La paleta de colores es un sueño pastel, con tonos azules, rosa ártico claro y amarillo bicicleta que añaden un toque caprichoso a la silueta clásica.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-dark pt-5 pb-4"></footer>
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start">
+    
+                <!-- Enlaces útiles -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Enlaces útiles</h5>
+                    <p><a href="#" class="text-dark">Inicio</a></p>
+                    <p><a href="#" class="text-dark">Acerca de nosotros</a></p>
+                    <p><a href="#" class="text-dark">Contacto</a></p>
+                </div>
+    
+                <!-- Contacto -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Contacto</h5>
+                    <p><i class="fas fa-phone mr-3"></i> +123456789</p>
+                    <p><i class="fas fa-envelope mr-3"></i> info@tuempresa.com</p>
+                    <p><i class="fas fa-map-marker-alt mr-3"></i> Calle Principal, Ciudad</p>
+                </div>
+    
+                <!-- Redes sociales -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Redes sociales</h5>
+                    <p><a href="#" class="text-dark">Facebook</a></p>
+                    <p><a href="#" class="text-dark">Twitter</a></p>
+                    <p><a href="#" class="text-dark">Instagram</a></p>
+                    <p><a href="#" class="text-dark">LinkedIn</a></p>
+                </div>
+    
+                <!-- CorpFreshh -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">CorpFreshh</h5>
+                    <p>Suscríbete a nuestro boletín informativo para recibir las últimas noticias y ofertas especiales.</p>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Tu correo electrónico">
+                        <button class="btn btn-primary" type="button">Suscribirse</button>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <!-- Copyright -->
+            <div class="row align-items-center mt-4">
+                <div class="col-md-12 text-center">
+                    <p class="text-dark">&copy; 2024 CorpFreshh. Todos los derechos reservados.</p>
+                </div>
+            </div>
+    
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
