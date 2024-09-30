@@ -14,6 +14,38 @@ if (!isset($_SESSION['correo'])) {
     <link rel=" stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+            <!-- jquery -->
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- datatables css y js -->
+    <link href="//cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" rel="stylesheet">
+    <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+ function confirmar(event) {
+        event.preventDefault(); // Evita la acción predeterminada del enlace
+        const link = event.currentTarget.href; // Obtiene la URL del enlace
+
+        Swal.fire({
+            title: '¿Estás seguro de eliminar este registro?',
+            text: "No podrás revertir esto",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745', // Color verde para el botón de confirmar
+            cancelButtonColor: '#6c757d', // Color gris para el botón de cancelar
+            confirmButtonText: 'Sí, eliminar!',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-success', // Clase de Bootstrap para el botón de confirmar
+                cancelButton: 'btn btn-secondary' // Clase de Bootstrap para el botón de cancelar
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link; // Redirige a la URL si se confirma
+            }
+        });
+    }
+</script>
 </head>
 
 <body>
@@ -92,7 +124,20 @@ if (!isset($_SESSION['correo'])) {
                 </a>
             </div>
         </aside>
+        
         <div class="main p-3">
+        <?php 
+if (isset($_GET['mensaje'])){
+    ?>
+    <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+        <?php echo htmlspecialchars($_GET['mensaje']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php
+}
+?>
+
+
             <main>
                 <h2 class="text-center">Gestión de Categorias</h2>
                 <div class="table-responsive">
@@ -144,6 +189,8 @@ if (!isset($_SESSION['correo'])) {
             </main>
         </div>
     </div>
+   
+   
 
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script>
@@ -153,6 +200,33 @@ if (!isset($_SESSION['correo'])) {
         document.querySelector("#sidebar").classList.toggle("expand");
     });
     </script>
+    <script>
+    $(document).ready(function() {
+        $('#table').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ entradas",
+                "sZeroRecords": "No se encontraron resultados",
+                "sInfo": "Ver entradas del _START_ al _END_ de _TOTAL_ entradas",
+                "sInfoEmpty": "Ver entradas del 0 al 0 de 0 entradas",
+                "sInfoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    });
+    </script>
+    
+    
 </body>
 
 </html>

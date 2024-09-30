@@ -27,7 +27,31 @@ if (!isset($_SESSION['correo'])) {
     <script src="//cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+ function confirmar(event) {
+        event.preventDefault(); // Evita la acción predeterminada del enlace
+        const link = event.currentTarget.href; // Obtiene la URL del enlace
 
+        Swal.fire({
+            title: '¿Estás seguro de eliminar este registro?',
+            text: "No podrás revertir esto",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745', // Color verde para el botón de confirmar
+            cancelButtonColor: '#6c757d', // Color gris para el botón de cancelar
+            confirmButtonText: 'Sí, eliminar!',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-success', // Clase de Bootstrap para el botón de confirmar
+                cancelButton: 'btn btn-secondary' // Clase de Bootstrap para el botón de cancelar
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link; // Redirige a la URL si se confirma
+            }
+        });
+    }
+</script>
 
 
     <title>Usuarios</title>
@@ -138,15 +162,24 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </aside>
         <div class="main p-3">
+        <?php 
+if (isset($_GET['mensaje'])){
+    ?>
+    <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+        <?php echo htmlspecialchars($_GET['mensaje']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php
+}
+?>
+
             <h1 class="text-center">Gestión de Usuarios</h1>
             <div class="container-fluid">
                 <div class="row">
 
                     <main>
                         <div class="table-responsive">
-                            <table
-                                class="  table table-container table-striped table-hover table-bordered table-responsive mt-4  "
-                                id="table">
+                            <table class="  table table-container table-striped table-hover table-bordered table-responsive mt-4  " id="table">
                                 <thead class="table-dark light-header">
                                     <tr class="text-center">
                                         <th style="font-weight:normal">ID</th>

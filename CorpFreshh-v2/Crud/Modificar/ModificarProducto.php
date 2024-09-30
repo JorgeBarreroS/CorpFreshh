@@ -101,63 +101,56 @@ if (!isset($_SESSION['correo'])) {
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <?php
-            require '../ModeloDAO/UsuarioDao.php';
-            require '../ModeloDTO/UsuarioDto.php';
+            require '../ModeloDAO/ProductoDao.php';
+            require '../ModeloDTO/ProductoDto.php';
             require '../Utilidades/conexion.php';
 
             if($_GET['id']!=NULL){
-                $uDao = new UsuarioDao();
-                $usuario = $uDao->obtenerUsuario($_GET['id']);
+                $uDao = new ProductoDao();
+                $usuario = $uDao->obtenerProducto($_GET['id']);
                 }
             ?>
 
-            <form action="../controladores/controlador.usuarios.php" method="POST">
-                <h3 class="text-center mt-4">MODIFICAR USUARIO</h3>
+            <form action="../controladores/controlador.producto.php" method="POST">
+                <h3 class="text-center mt-4">MODIFICAR PRODUCTO</h3>
                 <label for="">ID</label>
-                <input type="text" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>" class="form-control">
+                <input type="text" name="id_producto" value="<?php echo $usuario['id_producto'];?>" class="form-control">
                 <br>
                 <label for="">Nombre</label>
-                <input type="text" name="nombre_usuario" value="<?php echo $usuario['nombre_usuario'];?>" class="form-control">
+                <input type="text" name="nombre_producto" value="<?php echo $usuario['nombre_producto'];?>" class="form-control">
                 <br>
-                <label for="">Apellido</label>
-                <input type="text" name="apellido_usuario" value="<?php echo $usuario['apellido_usuario'];?>" class="form-control">
+                <label for="">Descripcion</label>
+                <input type="text" name="descripcion_producto" value="<?php echo $usuario['descripcion_producto'];?>" class="form-control">
                 <br>
-                <label for="">Telefono</label>
-                <input type="text" name="telefono_usuario" value="<?php echo $usuario['telefono_usuario'];?>" class="form-control">
+                <label for="">Color</label>
+                <input type="text" name="color_producto" value="<?php echo $usuario['color_producto'];?>" class="form-control">
                 <br>
-                <label for="">Correo</label>
-                <input type="text" name="correo_usuario" value="<?php echo $usuario['correo_usuario'];?>" class="form-control">
-                <br>
-                <br>
-                <label for="">Direccion</label>
-                <input type="text" name="direccion1_usuario" value="<?php echo $usuario['direccion1_usuario'];?>" class="form-control">
+                <label for="">Precio</label>
+                <input type="text" name="precio_producto" value="<?php echo $usuario['precio_producto'];?>" class="form-control">
                 <br>
                 <br>
-                <label for="">Direccion 2</label>
-                <input type="text" name="direccion2_usuario" value="<?php echo $usuario['direccion2_usuario'];?>" class="form-control">
+                <label for="">Imagen</label>
+                <input type="text" name="imagen_producto" value="<?php echo $usuario['imagen_producto'];?>" class="form-control">
                 <br>
                 <br>
-                <label for="">Ciudad</label>
-                <input type="text" name="ciudad_usuario" value="<?php echo $usuario['ciudad_usuario'];?>" class="form-control">
+                <label for="">Marca</label>
+                <input type="text" name="nombre_marca" value="<?php echo $usuario['nombre_marca'];?>" class="form-control">
                 <br>
                 <br>
-                <label for="">Pais</label>
-                <input type="text" name="pais_usuario" value="<?php echo $usuario['pais_usuario'];?>" class="form-control">
+                <label for="">Talla</label>
+                <input type="text" name="talla" value="<?php echo $usuario['talla'];?>" class="form-control">
                 <br>
                 <br>
-                <label for="">Clave</label>
-                <input type="text" name="contraseña" value="<?php echo $usuario['contraseña'];?>" class="form-control">
+                <label for="">Categoria</label>
+                <input type="text" name="id_categoria" value="<?php echo $usuario['id_categoria'];?>" class="form-control">
                 <br>
-                <br>
-                <label for="">Rol</label>
-                <input type="text" name="id_rol" value="<?php echo $usuario['id_rol'];?>" class="form-control">
-                <br>
+                
              
 
                 <!--nuevo  -->
                 <div class="d-flex justify-content-center">
                     <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary">
-                    <a href="../usuarios.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
+                    <a href="../productos.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
                 </div>
             </form>
 
