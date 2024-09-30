@@ -7,12 +7,19 @@ class UsuarioDao{
     $mensaje = "";
 
     try {
-        $query = $cnn->prepare("INSERT INTO usuario values(?,?,?,?,?)");
-        $query->bindParam(1, $usuarioDto->getIdUsuario());
-        $query->bindParam(2, $usuarioDto->getNombre());
-        $query->bindParam(3, $usuarioDto->getApellido());
-        $query->bindParam(4, $usuarioDto->getDireccion());
-        $query->bindParam(5, $usuarioDto->getClave());
+        $query = $cnn->prepare("INSERT INTO usuario values(NULL,?,?,?,?,?,?,?,?,?,?)");
+        
+        $query->bindParam(1, $usuarioDto->getnombre_usuario());
+        $query->bindParam(2, $usuarioDto->getapellido_usuario());
+        $query->bindParam(3, $usuarioDto->gettelefono_usuario());
+        $query->bindParam(4, $usuarioDto->getcorreo_usuario());
+        $query->bindParam(5, $usuarioDto->getdireccion1_usuario());
+        $query->bindParam(6, $usuarioDto->getdireccion2_usuario());
+        $query->bindParam(7, $usuarioDto->getciudad_usuario());
+        $query->bindParam(8, $usuarioDto->getpais_usuario());
+        $query->bindParam(9, $usuarioDto->getcontraseña());
+        $query->bindParam(10, $usuarioDto->getid_rol());
+
         $query->execute();
         $mensaje= "Registro exitoso";
     } catch (Exception  $ex) {
@@ -26,12 +33,18 @@ public function modificarUsuario(UsuarioDto $usuarioDto){
     $cnn = Conexion::getConexion();
     $mensaje = "";
     try {
-        $query = $cnn->prepare("UPDATE usuario SET nombre=?, apellido=?, direccion=?, clave=? WHERE idUsuario=?");
-        $query->bindParam(1, $usuarioDto->getNombre());
-        $query->bindParam(2, $usuarioDto->getApellido());
-        $query->bindParam(3, $usuarioDto->getDireccion());
-        $query->bindParam(4, $usuarioDto->getClave());
-        $query->bindParam(5, $usuarioDto->getIdUsuario());
+        $query = $cnn->prepare("UPDATE usuario SET nombre_usuario=?, apellido_usuario=?, telefono_usuario=?, correo_usuario=? , direccion1_usuario=?, direccion2_usuario=?, ciudad_usuario=?, pais_usuario=?, contraseña=?, id_rol=? WHERE id_usuario=?");
+        $query->bindParam(1, $usuarioDto->getnombre_usuario());
+        $query->bindParam(2, $usuarioDto->getapellido_usuario());
+        $query->bindParam(3, $usuarioDto->gettelefono_usuario());
+        $query->bindParam(4, $usuarioDto->getcorreo_usuario());
+        $query->bindParam(5, $usuarioDto->getdireccion1_usuario());
+        $query->bindParam(6, $usuarioDto->getdireccion2_usuario());
+        $query->bindParam(7, $usuarioDto->getciudad_usuario());
+        $query->bindParam(8, $usuarioDto->getpais_usuario());
+        $query->bindParam(9, $usuarioDto->getcontraseña());
+        $query->bindParam(10, $usuarioDto->getid_rol());
+        $query->bindParam(11, $usuarioDto->getid_usuario());
         $query->execute();
         $mensaje= "Registro actualizado";
     } catch (Exception  $ex) {
@@ -62,7 +75,7 @@ public function eliminarUsuario($id_usuario){
     $cnn = Conexion::getConexion();
     $mensaje = "";
     try {
-        $query = $cnn->prepare('DELETE FROM usuario WHERE idUsuario= ?');
+        $query = $cnn->prepare('DELETE FROM usuario WHERE id_usuario= ?');
         $query->bindParam(1, $id_usuario);
         $query->execute();
         $mensaje= "Registro eliminado";

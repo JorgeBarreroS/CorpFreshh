@@ -94,8 +94,8 @@ if (!isset($_SESSION['correo'])) {
         </aside>
         <div class="main p-3">
             <main>
-                <h2>Gestión de Categorias</h2>
-
+                <h2 class="text-center">Gestión de Categorias</h2>
+                <div class="table-responsive">
                 <div class="table-container">
                     <table class="table table-striped table-hover table-bordered table-responsive mt-4" id="table">
                         <thead class="table-dark table light-header">
@@ -134,9 +134,9 @@ if (!isset($_SESSION['correo'])) {
                     </table>
 
                 </div>
+                </div>
                 <div class="text-left">
                     <a href="Registrarse/registrocategoria.php" class="btn btn-danger "> Registrarse</a>
-                    <a href="index.php" class="btn btn-success "> Regresar</a>
                     <a href="reporte.php" class="btn btn-warning "> Reporte </a>
                 </div>
 

@@ -203,8 +203,7 @@ if (!isset($_SESSION['correo'])) {
                         </div>
 
                         <div class="text-left">
-                            <a href="registro.php" class="btn btn-danger"> Registrarse </a>
-                            <a href="index.php" class="btn btn-success"> Regresar </a>
+                            <a href="Registrarse/registro.php" class="btn btn-danger"> Registrar </a>
                             <a href="reporte.php" class="btn btn-warning">Reporte </a>
                         </div>
                     </main>

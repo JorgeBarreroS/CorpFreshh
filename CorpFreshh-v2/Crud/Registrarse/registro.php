@@ -14,15 +14,17 @@ if (!isset($_SESSION['correo'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar</title>
+    <title>Registrar</title>
     <link rel=" stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/sytles2.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="wrapper">
-    <aside id="sidebar">
+        <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -97,91 +99,85 @@ if (!isset($_SESSION['correo'])) {
             </div>
         </aside>
         <div class="main p-3">
-        <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <?php
-            require '../ModeloDAO/UsuarioDao.php';
-            require '../ModeloDTO/UsuarioDto.php';
-            require '../Utilidades/conexion.php';
 
-            if($_GET['id']!=NULL){
-                $uDao = new UsuarioDao();
-                $usuario = $uDao->obtenerUsuario($_GET['id']);
-                }
-            ?>
 
-            <form action="../controladores/controlador.usuarios.php" method="POST">
-                <h3 class="text-center mt-4">MODIFICAR USUARIO</h3>
-                <label for="">Documento</label>
-                <input type="text" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>" class="form-control">
-                <br>
-                <label for="">Nombre</label>
-                <input type="text" name="nombre_usuario" value="<?php echo $usuario['nombre_usuario'];?>" class="form-control">
-                <br>
-                <label for="">Apellido</label>
-                <input type="text" name="apellido_usuario" value="<?php echo $usuario['apellido_usuario'];?>" class="form-control">
-                <br>
-                <label for="">Dirección</label>
-                <input type="text" name="telefono_usuario" value="<?php echo $usuario['telefono_usuario'];?>" class="form-control">
-                <br>
-                <label for="">Clave</label>
-                <input type="text" name="correo_usuario" value="<?php echo $usuario['correo_usuario'];?>" class="form-control">
-                <br>
-                <br>
-                <label for="">Clave</label>
-                <input type="text" name="direccion1_usuario" value="<?php echo $usuario['direccion1_usuario'];?>" class="form-control">
-                <br>
-                <br>
-                <label for="">Clave</label>
-                <input type="text" name="direccion2_usuario" value="<?php echo $usuario['direccion2_usuario'];?>" class="form-control">
-                <br>
-                <br>
-                <label for="">Clave</label>
-                <input type="text" name="ciudad_usuario" value="<?php echo $usuario['ciudad_usuario'];?>" class="form-control">
-                <br>
-                <br>
-                <label for="">Clave</label>
-                <input type="text" name="pais_usuario" value="<?php echo $usuario['pais_usuario'];?>" class="form-control">
-                <br>
-                <br>
-                <label for="">Clave</label>
-                <input type="text" name="contraseña" value="<?php echo $usuario['contraseña'];?>" class="form-control">
-                <br>
-                <br>
-                <label for="">Clave</label>
-                <input type="text" name="id_rol" value="<?php echo $usuario['id_rol'];?>" class="form-control">
-                <br>
-             
+            <div class="container-fluid">
 
-                <!--nuevo  -->
-                <div class="d-flex justify-content-center">
-                    <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary">
-                    <a href="../usuarios.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
-                </div>
-            </form>
+                <main >
+                    <h2 class="text-center mt-4" >Registro de Categoria </h2>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4 mt-4">
+                            <form action="../controladores/controlador.usuarios.php" method="POST">
+                                <h3 class="text-center">REGISTRO</h3>
+                            
+                                <label for="">Nombre</label>
+                                <input type="text" name="nombre_usuario" class="form-control">
+                                <br>
+                                <label for="">Apellido</label>
+                                <input type="text" name="apellido_usuario" class="form-control">
+                                <br>
+                                <label for="">Telefono</label>
+                                <input type="text" name="telefono_usuario" class="form-control">
+                                <br>
+                                <label for="">Correo</label>
+                                <input type="text" name="correo_usuario" class="form-control">
+                                <br>
+                                <label for="">Direccion</label>
+                                <input type="text" name="direccion1_usuario" class="form-control">
+                                <br>
+                                <label for="">Direccion 2</label>
+                                <input type="text" name="direccion2_usuario" class="form-control">
+                                <br>
+                                <label for="">Ciudad </label>
+                                <input type="text" name="ciudad_usuario" class="form-control">
+                                <br>
+                                <label for="">Pais</label>
+                                <input type="text" name="pais_usuario" class="form-control">
+                                <br>
+                                <label for="">Contraseña</label>
+                                <input type="text" name="contraseña" class="form-control">
+                                <br>
 
+
+                                <!--nuevo  -->
+                                <div class="d-flex justify-content-center">
+                                    <input type="submit" name="registro" id="registro" value="Registrarse"
+                                        class="btn btn-primary">
+                                    <a href="../usuarios.php" class="btn btn-info btn-block mx-2 ">Cancelar</a>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+                        <div class="col-md-6 mt-4"></div>
+                    </div>
+                   
+                </main>
+            </div>
         </div>
-        <div class="col-md-4 mt-4"></div>
+
+
+
+        <?php 
+if(isset($_GET['mensaje'])){
+  ?>
+
+        <div class="row"> <br><br>
+            <div class="col-md-6"></div>
+            <div class="col-md-4 text-center">
+                <h4><?php echo $mensaje = $_GET['mensaje']?>
+                </h4>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+        <?php 
+    }
+?>
+        <div></div>
+
     </div>
-
-    <?php
-    if(isset($_GET['mensaje'])){
-        ?>
-
-    <div class="row"> <br><br>
-        <div class="col-md-6"></div>
-        <div class="col-md-4 text-center">
-            <h4><?php echo $mensaje = $_GET['mensaje']?>
-            </h4>
-        </div>
-        <div class="col-md-5"></div>
-    </div>
-
-    <?php } ?>
-
-
-        </div>
     </div>
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script>
