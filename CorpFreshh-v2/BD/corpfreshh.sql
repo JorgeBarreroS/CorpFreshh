@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-09-2024 a las 14:29:24
+-- Tiempo de generación: 30-09-2024 a las 04:18:36
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -410,7 +410,7 @@ CREATE TABLE `t_usuario` (
 
 INSERT INTO `t_usuario` (`t_id_usuario`, `correo`, `contraseña`, `rol`) VALUES
 (1, 'olamiperro@gmail.com', 0xe87630b5e9724aef90045addab81705a, 1),
-(2, 'maria@example.com', 0xbcd54734740f4a20619dea52561b4dcd, 2),
+(2, 'maria@example.com$', 0xefbfbdefbfbd4734740f4a2061efbfbdefbfbd52561b4defbfbd, 2),
 (3, 'carlos@example.com', 0x690b6cc7815d16a92dce9d3f84e4f74f, 2),
 (4, 'laura@example.com', 0xf58e3f7beadd3fef497cd2c6cb33de4c, 2),
 (5, 'ana@example.com', 0xc0df72a2db908c8749ec7183348f4ac5, 2),
@@ -475,7 +475,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `nombre_usuario`, `apellido_usuario`, `telefono_usuario`, `correo_usuario`, `direccion1_usuario`, `direccion2_usuario`, `ciudad_usuario`, `pais_usuario`, `contraseña`, `id_rol`) VALUES
 (1, 'juan', 'lopez', '31234546', 'olamiperro@gmail.com', 'calle 9', 'calle 8', 'Bogotá', 'colombia', 0xe87630b5e9724aef90045addab81705a, 1),
-(2, 'María', 'Sánchez', '234567890', 'maria@example.com', 'Avenida 456', 'Casa 2', 'Medellín', 'Colombia', 0xbcd54734740f4a20619dea52561b4dcd, 2),
+(2, 'María$', 'Sánchez$', '234567890$', 'maria@example.com$', 'Avenida 456$', 'Casa 2$', 'Medellín$', 'Colombia$', 0xefbfbdefbfbd4734740f4a2061efbfbdefbfbd52561b4defbfbd, 2),
 (3, 'Carlos', 'Gómez', '564738291', 'carlos@example.com', 'Carrera 789', 'Piso 3', 'Cali', 'Colombia', 0x690b6cc7815d16a92dce9d3f84e4f74f, 2),
 (4, 'Laura', 'Martínez', '102938475', 'laura@example.com', 'Calle 789', 'Apartamento 5', 'Cartagena', 'Colombia', 0xf58e3f7beadd3fef497cd2c6cb33de4c, 2),
 (5, 'Ana', 'Rodríguez', '293847561', 'ana@example.com', 'Avenida 101', 'Local 2', 'Barranquilla', 'Colombia', 0xc0df72a2db908c8749ec7183348f4ac5, 2),
@@ -620,6 +620,28 @@ ALTER TABLE `usuario`
   ADD KEY `id_rol` (`id_rol`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12334;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -647,14 +669,14 @@ ALTER TABLE `pedido`
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`);
+  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `t_usuario`
 --
 ALTER TABLE `t_usuario`
   ADD CONSTRAINT `t_usuario_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `rol` (`id_rol`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `t_usuario_ibfk_2` FOREIGN KEY (`t_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `t_usuario_ibfk_2` FOREIGN KEY (`t_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
