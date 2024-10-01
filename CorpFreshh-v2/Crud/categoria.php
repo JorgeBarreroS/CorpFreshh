@@ -105,10 +105,19 @@ if (!isset($_SESSION['correo'])) {
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="notificaciones.php" class="sidebar-link">
-                        <i class="lni lni-popup"></i>
-                        <span>Notificaciones</span>
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#repotesMenu" aria-expanded="false" aria-controls="repotesMenu">
+                        <i class="lni lni-bar-chart"></i>
+                        <span>Reportes</span>
                     </a>
+                    <ul id="repotesMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="notificaciones.php" class="sidebar-link">Reporte de venta</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="grafica2.php" class="sidebar-link">Reporte cantidad producto</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-item">
                     <a href="ajustesperf.php" class="sidebar-link">

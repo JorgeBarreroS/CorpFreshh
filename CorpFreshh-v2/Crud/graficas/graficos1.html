@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Tablero</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- para la barra lateral -->
+            <aside class="barra-lateral col-auto p-0">
+                <div class="logo">
+                    <h2 class="py-4 m-0">Opciones</h2>
+                </div>
+                <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+                    <!-- opción 1 -->
+                    <a href="graficos1.html">grafico 1</a>
+                    <!-- opción 2 -->
+                    <a href="graficos2.html">grafico 2</a>
+                    <!-- opción 3 -->
+                    <a href="#">Productos</a>
+                    <!-- opción 4 -->
+                    <a href="#">Configuración</a>
+                    <!-- opción 5: Salir -->
+                    <a href="index.php">Salir</a>
+                </nav>
+            </aside>
+            <!-- para el contenido principal -->
+            <main class="col-9">
+                <div class="container py-4">
+                    <div class="row mt4">
+                        <h2 class="text-center fw-light fs-6">Reporte  de ventas </h2>
+                    </div>
+
+                    <!-- gráficos -->
+                    <div class="row">
+                        <!-- primer gráfico -->
+                        <div class="col-md-6">
+                            <canvas id="chart1"></canvas>
+                        </div>
+                        <!-- segundo gráfico -->
+                        <div class="col-md-6">
+                            <canvas id="chart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- scripts para gráficos -->
+    <script>
+        async function fetchData() {
+            try {
+                // Llamada al archivo PHP para obtener los datos
+                const response = await fetch('datos1.php');
+                const data = await response.json();
+
+                // Procesar los datos para los gráficos
+                const labels = data.map(item => item.fecha_venta);
+                const values = data.map(item => item.total_ventas);
+
+                // Primer gráfico
+                const ctx1 = document.getElementById('chart1').getContext('2d');
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Ventas por mes',
+                            data: values,
+                            backgroundColor: 'rgba(0, 100, 0, 0.2)',
+                            borderColor: 'rgba(0, 100, 0, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Segundo gráfico 
+                const ctx2 = document.getElementById('chart2').getContext('2d');
+                new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Ventas',
+                            data: values,
+                            backgroundColor: 'rgba(0, 191, 255, 0.2)',
+                            borderColor: 'rgba(0, 191, 255, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+            }
+        }
+
+
+        // función para obtener los datos y crear los gráficos
+        fetchData();
+    </script>
+</body>
+
+</html>

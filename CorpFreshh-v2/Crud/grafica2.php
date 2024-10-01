@@ -78,11 +78,11 @@ if (!isset($_SESSION['correo'])) {
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#repotesMenu" aria-expanded="false" aria-controls="repotesMenu">
+                        data-bs-target="#ordenesMenu" aria-expanded="false" aria-controls="ordenesMenu">
                         <i class="lni lni-bar-chart"></i>
                         <span>Reportes</span>
                     </a>
-                    <ul id="repotesMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <ul id="ordenesMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
                             <a href="notificaciones.php" class="sidebar-link">Reporte de venta</a>
                         </li>
@@ -109,7 +109,7 @@ if (!isset($_SESSION['correo'])) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="logo">
-                        <h2 id="opciones" class="py-4 m-0">Reporte de ventas</h2>
+                        <h2 id="opciones" class="py-4 m-0">Reporte cantidad producto</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -142,76 +142,65 @@ if (!isset($_SESSION['correo'])) {
     });
 
     async function fetchData() {
-        try {
-            const response = await fetch('./graficas/datos1.php');
-            const data = await response.json();
+            try {
+                // Llamada al archivo PHP para obtener los datos
+                const response = await fetch('./graficas/datos2.php');
+                const data = await response.json();
 
-            const labels = data.map(item => item.fecha_venta);
-            const values = data.map(item => parseFloat(item.total_ventas));
+                // Procesar los datos para los gráficos
+                const labels = data.map(item => item.id_producto);
+                const values = data.map(item => item.Cantidad_Producto);
 
-            // Gráfico de barras
-            const ctx1 = document.getElementById('chart1').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Ventas por fecha',
-                        data: values,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                // Primer gráfico
+                const ctx1 = document.getElementById('chart1').getContext('2d');
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'cantidad vendia por productos',
+                            data: values,
+                            backgroundColor: 'rgba(0, 100, 0, 0.2)',
+                            borderColor: 'rgba(0, 100, 0, 1)',
+                            borderWidth: 1
+                        }]
                     },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Ventas por Fecha'
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
-                }
-            });
+                });
 
-            // Gráfico de líneas
-            const ctx2 = document.getElementById('chart2').getContext('2d');
-            new Chart(ctx2, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Tendencia de Ventas',
-                        data: values,
-                        fill: false,
-                        borderColor: 'rgb(255, 99, 132)',
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                // Segundo gráfico 
+                const ctx2 = document.getElementById('chart2').getContext('2d');
+                new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Ventas',
+                            data: values,
+                            backgroundColor: 'rgba(0, 191, 255, 0.2)',
+                            borderColor: 'rgba(0, 191, 255, 1)',
+                            borderWidth: 1
+                        }]
                     },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Tendencia de Ventas'
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
-                }
-            });
-        } catch (error) {
-            console.error('Error al obtener los datos:', error);
+                });
+
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+            }
         }
-    }
 
     document.addEventListener('DOMContentLoaded', fetchData);
     </script>
