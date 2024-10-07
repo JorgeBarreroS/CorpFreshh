@@ -103,7 +103,7 @@
 
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5">Conoce a nuestras cofundadoras</h2>
+            <h2 class="text-center mb-5">Conoce a nuestras cofundadores</h2>
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card border-0 shadow">
@@ -127,7 +127,7 @@
                     <div class="card border-0 shadow">
                         <img src="imagenes/perfil3.jfif" alt="Co-Founder 3" class="card-img-top">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Nelson Avellanea</h5>
+                            <h5 class="card-title">Nelson Avellaneda</h5>
                             <p class="card-text">CEO y diseñador</p>
                         </div>
                     </div>
@@ -180,8 +180,8 @@
                 <h5 class="text-uppercase mb-4 font-weight-bold">CorpFreshh</h5>
                 <p>Suscríbete a nuestro boletín informativo para recibir las últimas noticias y ofertas especiales.</p>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Tu correo electrónico">
-                    <button class="btn btn-primary" type="button">Suscribirse</button>
+                    <input type="text" class="form-control" id="email" placeholder="Tu correo electrónico">
+                    <button class="btn btn-primary" type="button" id="subscribeBtn">Suscribirse</button>
                 </div>
             </div>
 
@@ -197,6 +197,39 @@
     </div>
 </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Obtener los elementos del DOM
+    const emailInput = document.getElementById('email');
+    const subscribeBtn = document.getElementById('subscribeBtn');
+
+    // Evento al hacer clic en el botón de suscripción
+    subscribeBtn.addEventListener('click', () => {
+        const email = emailInput.value.trim();
+
+        // Validar si el campo está vacío
+        if (email === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo vacío',
+                text: 'Por favor, ingresa tu correo electrónico',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            // Aquí podrías agregar la lógica para enviar el formulario
+            Swal.fire({
+                icon: 'success',
+                title: '¡Suscripción completada!',
+                text: 'Gracias por suscribirte a nuestro boletín',
+                confirmButtonText: 'OK'
+            });
+
+            // Limpiar el campo de texto después de enviar
+            emailInput.value = "";
+        }
+    });
+</script>
 </body>
 </html>

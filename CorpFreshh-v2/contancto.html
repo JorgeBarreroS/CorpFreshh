@@ -52,13 +52,13 @@
                 <img src="imagenes/whatsapp.png" alt="WhatsApp" width="100">
                 <h4 class="mt-3">¿Necesitas ayuda rápida?</h4>
                 <p>Contacta con nosotros a través de WhatsApp:</p>
-                <a href="https://wa.me/3208706701" class="btn btn-primary">Enviar mensaje por WhatsApp</a>
+                <a href="https://wa.me/3208706701" class="btn btn-primary" id="whatsappBtn">Enviar mensaje por WhatsApp</a>
             </div>
-
+    
             <!-- Formulario de contacto -->
             <div class="col-md-6">
                 <h5 class="mb-3">O envíanos un mensaje:</h5>
-                <form>
+                <form id="contactForm">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre">
@@ -76,7 +76,6 @@
             </div>
         </div>
     </div>
-
 
 
 
@@ -116,8 +115,8 @@
                 <h5 class="text-uppercase mb-4 font-weight-bold">CorpFreshh</h5>
                 <p>Suscríbete a nuestro boletín informativo para recibir las últimas noticias y ofertas especiales.</p>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Tu correo electrónico">
-                    <button class="btn btn-primary" type="button">Suscribirse</button>
+                    <input type="text" class="form-control" id="email" placeholder="Tu correo electrónico">
+                    <button class="btn btn-primary" type="button" id="subscribeBtn">Suscribirse</button>
                 </div>
             </div>
 
@@ -134,5 +133,96 @@
 </footer>
 
 <script src="js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Obtener los elementos del DOM
+    const emailInput = document.getElementById('email');
+    const subscribeBtn = document.getElementById('subscribeBtn');
+
+    // Evento al hacer clic en el botón de suscripción
+    subscribeBtn.addEventListener('click', () => {
+        const email = emailInput.value.trim();
+
+        // Validar si el campo está vacío
+        if (email === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo vacío',
+                text: 'Por favor, ingresa tu correo electrónico',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            // Aquí podrías agregar la lógica para enviar el formulario
+            Swal.fire({
+                icon: 'success',
+                title: '¡Suscripción completada!',
+                text: 'Gracias por suscribirte a nuestro boletín',
+                confirmButtonText: 'OK'
+            });
+
+            // Limpiar el campo de texto después de enviar
+            emailInput.value = "";
+        }
+    });
+</script>
+
+<script>
+    // Obtener el formulario
+    const contactForm = document.getElementById('contactForm');
+
+    // Escuchar el evento submit del formulario
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevenir el envío por defecto del formulario
+
+        // Obtener los valores de los campos
+        const nombre = document.getElementById('nombre').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mensaje = document.getElementById('mensaje').value.trim();
+
+        // Validar campos vacíos
+        if (nombre === "" || email === "" || mensaje === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos incompletos',
+                text: 'Por favor, completa todos los campos antes de enviar.',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            // Aquí podrías agregar la lógica para enviar el formulario al servidor
+            Swal.fire({
+                icon: 'success',
+                title: '¡Mensaje enviado!',
+                text: 'Gracias por contactarnos. Te responderemos lo antes posible.',
+                confirmButtonText: 'OK'
+            });
+
+            // Limpiar el formulario después del envío
+            document.getElementById('nombre').value = "";
+            document.getElementById('email').value = "";
+            document.getElementById('mensaje').value = "";
+        }
+    });
+
+    // Alerta para el botón de WhatsApp
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    whatsappBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Evitar que el enlace se abra directamente
+
+        Swal.fire({
+            icon: 'info',
+            title: 'Redirigiendo a WhatsApp',
+            text: 'Serás redirigido a WhatsApp para enviar tu mensaje.',
+            showCancelButton: true,
+            confirmButtonText: 'Continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirigir al enlace de WhatsApp si el usuario confirma
+                window.location.href = whatsappBtn.href;
+            }
+        });
+    });
+</script>
 </body>
 </html>

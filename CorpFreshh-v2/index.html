@@ -158,8 +158,8 @@
                     <h5 class="text-uppercase mb-4 font-weight-bold">CorpFreshh</h5>
                     <p>Suscríbete a nuestro boletín informativo para recibir las últimas noticias y ofertas especiales.</p>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Tu correo electrónico">
-                        <button class="btn btn-primary" type="button">Suscribirse</button>
+                        <input type="text" class="form-control" id="email" placeholder="Tu correo electrónico">
+                        <button class="btn btn-primary" type="button" id="subscribeBtn">Suscribirse</button>
                     </div>
                 </div>
     
@@ -222,6 +222,38 @@
             });
         }
     </script>
+
+<script>
+    // Obtener los elementos del DOM
+    const emailInput = document.getElementById('email');
+    const subscribeBtn = document.getElementById('subscribeBtn');
+
+    // Evento al hacer clic en el botón de suscripción
+    subscribeBtn.addEventListener('click', () => {
+        const email = emailInput.value.trim();
+
+        // Validar si el campo está vacío
+        if (email === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campo vacío',
+                text: 'Por favor, ingresa tu correo electrónico',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            // Aquí podrías agregar la lógica para enviar el formulario
+            Swal.fire({
+                icon: 'success',
+                title: '¡Suscripción completada!',
+                text: 'Gracias por suscribirte a nuestro boletín',
+                confirmButtonText: 'OK'
+            });
+
+            // Limpiar el campo de texto después de enviar
+            emailInput.value = "";
+        }
+    });
+</script>
     
     
 </body>
