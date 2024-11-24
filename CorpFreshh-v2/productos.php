@@ -121,7 +121,7 @@ $total_paginas = ceil($total_productos / $productos_por_pagina);
                         <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="productos.html">Productos</a>
+                        <a class="nav-link active" href="productos.php">Productos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="contancto.html">Contacto</a>
@@ -132,10 +132,10 @@ $total_paginas = ceil($total_productos / $productos_por_pagina);
                 </ul>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
-                <a href="busqueda.html" class="ms-2">
+                <a href="busqueda.php" class="ms-2">
                     <img src="imagenes/busqueda-de-lupa.png" id="img-lupa" alt="lupa" width="30px">
                 </a>
-                <a href="carrito.html" class="ms-2">
+                <a href="carrito.php" class="ms-2">
                     <img src="imagenes/carrito-de-compras.png" id="img-carrito" alt="carrito" width="30px">
                 </a>
                 <a href="Crud/login.php" class="ms-2">
